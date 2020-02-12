@@ -152,4 +152,13 @@ SELECT DISTINCT company
 FROM customer
 
 -- Delete Rows
+DELETE FROM practice_delete
+WHERE type = 'bronze'
+
+DELETE FROM practice_delete
+WHERE type = 'silver'
+
+DELETE FROM practice_delete
+WHERE value = 150
+
 -- eCommerce Simulation
