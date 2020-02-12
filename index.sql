@@ -121,9 +121,26 @@ WHERE composer IS null AND genre_id IN (
   WHERE name = 'Metal'
 )
 
-
-
 -- Group by
+SELECT g.name, COUNT(*)
+FROM track t
+  JOIN genre g
+  ON t.genre_id = g.genre_id
+GROUP BY g.name
+
+SELECT g.name, COUNT(*)
+FROM genre g
+  JOIN track t
+  ON t.genre_id = g.genre_id
+WHERE g.name = 'Pop' OR g.name = 'Rock'
+GROUP BY g.name
+
+SELECT ar.name, COUNT(*)
+FROM artist ar
+  JOIN album al
+  ON ar.artist_id = al.artist_id
+GROUP BY ar.name
+
 -- Use Distinct
 -- Delete Rows
 -- eCommerce Simulation
