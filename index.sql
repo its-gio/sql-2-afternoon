@@ -142,5 +142,14 @@ FROM artist ar
 GROUP BY ar.name
 
 -- Use Distinct
+SELECT DISTINCT composer
+FROM track
+
+SELECT DISTINCT billing_postal_code
+FROM invoice
+
+SELECT DISTINCT company
+FROM customer
+
 -- Delete Rows
 -- eCommerce Simulation
