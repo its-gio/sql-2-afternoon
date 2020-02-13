@@ -162,3 +162,93 @@ DELETE FROM practice_delete
 WHERE value = 150
 
 -- eCommerce Simulation
+CREATE TABLE users
+(
+  user_id
+    SERIAL PRIMARY KEY,
+  email
+    varchar
+(50),
+  first_name
+    varchar
+(50),
+  last_name
+    varchar
+(50)
+)
+
+CREATE TABLE products
+(
+  product_id SERIAL PRIMARY KEY,
+  name varchar(50),
+  price float
+)
+
+CREATE TABLE orders
+(
+  order_id SERIAL PRIMARY KEY,
+  order_group int,
+  product_id int REFERENCES products(product_id),
+  user_id int REFERENCES users(user_id)
+)
+
+INSERT INTO users
+  (first_name, last_name, email)
+VALUES
+  ('Michael', 'Bay', 'mbay@bayham.com'),
+  ('Sally', 'Sue', 'suehuey@lawyer.com'),
+  ('Prep', 'Pomp', 'random@salman.com')
+
+INSERT INTO products
+  (name, price)
+VALUES
+  ('Milk', 9.99),
+  ('Paper', 1.99),
+  ('Pepsi Cola', 0.99)
+
+INSERT INTO orders
+  (order_group, user_id, product_id)
+VALUES
+  (1, 1, 2),
+  (1, 1, 3),
+  (2, 2, 1),
+  (3, 1, 1),
+  (4, 2, 1),
+  (5, 3, 2),
+  (5, 3, 1),
+  (5, 3, 1),
+  (6, 2, 1)
+
+SELECT *
+FROM products
+WHERE product_id IN (
+  SELECT product_id
+FROM orders
+WHERE product_id = 1
+)
+
+SELECT *
+FROM products
+WHERE product_id IN (
+  SELECT product_id
+FROM orders
+)
+
+SELECT price
+FROM orders o
+  JOIN products p
+  ON o.product_id = p.product_id
+WHERE order_id = 1
+
+ALTER TABLE orders
+ADD user_id int REFERENCES users(user_id)
+
+SELECT *
+FROM orders
+  JOIN users
+  ON orders.user_id = users.user_id
+WHERE users.user_id = 3
+
+SELECT user_id, COUNT(*)
+FROM orders
+GROUP BY user_id
